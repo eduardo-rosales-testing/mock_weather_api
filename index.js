@@ -17,13 +17,16 @@ mongoose.connect(
 // import route
 const authenticateRoute = require("./routes/auth");
 const weatherRoutes = require("./routes/weather");
+const weatherRoutesProtected = require("./routes/weatherProtected")
 const verifyToken = require("./routes/validate-token");
 // middlewares
 app.use(express.json());
 // authentication route middleware
 app.use("/authenticate", authenticateRoute);
+// non-protected routes
+app.use("/weather/", weatherRoutes);
 // protected routes
-app.use("/weather", verifyToken, weatherRoutes)
+app.use("/protected/weather/", verifyToken, weatherRoutesProtected);
 app.listen(4000, () => {
   console.log("server is running...");
 });
